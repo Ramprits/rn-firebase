@@ -1,7 +1,12 @@
 import React, { useLayoutEffect, useEffect, useState } from "react";
-import { View } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
 import { Avatar } from "react-native-elements";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 import CustomListItem from "../components/CustomListItem";
@@ -25,10 +30,20 @@ const HomeScreen = ({ navigation }) => {
       setChats(snapshotData);
     });
     return () => subscription;
-  }, []);
+  }, [chats]);
+
+  const handleOnChat = (id, chatName) => {
+    console.log("id, chatName", id, chatName);
+    navigation.navigate("Chat", {
+      id,
+      chatName,
+    });
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "Signal",
+      headerTitleAlign: "right",
       headerTitleStyle: { color: "white" },
       headerTintColor: "white",
       headerLeft: () => (
@@ -54,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
           }}
         >
           <TouchableOpacity>
-            <AntDesign name="camerao" size={24} activeOpacity={0.5} />
+            <AntDesign name="camerao" size={24} />
           </TouchableOpacity>
 
           <TouchableOpacity>
@@ -71,10 +86,15 @@ const HomeScreen = ({ navigation }) => {
     return () => {};
   }, [navigation]);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="light" />
       <ScrollView>
         {chats.map((c) => (
-          <CustomListItem key={c.id} {...c} />
+          <CustomListItem
+            key={c.id}
+            {...c}
+            handleOnChat={() => handleOnChat(c.id, c.data.chatName)}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>
@@ -83,4 +103,8 @@ const HomeScreen = ({ navigation }) => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+  },
+});

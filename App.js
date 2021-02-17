@@ -6,10 +6,11 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
 import AddChatScreen from "./screens/AddChatScreen";
+import ChatScreen from "./screens/ChatScreen";
 
 const Stack = createStackNavigator();
 const globalScreenOptions = {
-  title: "Add New Chat",
+  title: "Welcome to Signal Chat",
   headerStyle: {
     backgroundColor: "#2C6BED",
   },
@@ -29,6 +30,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen}></Stack.Screen>
         <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
         <Stack.Screen name="AddChat" component={AddChatScreen}></Stack.Screen>
+        <Stack.Screen name="Chat" component={ChatScreen}></Stack.Screen>
         <Stack.Screen name="Register" component={RegisterScreen}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

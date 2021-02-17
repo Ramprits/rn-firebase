@@ -17,7 +17,7 @@ const LoginScreen = ({ navigation }) => {
         navigation.replace("Home");
       }
     });
-    return () => subscription();
+    return () => subscription;
   }, [navigation]);
 
   return (

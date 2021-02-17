@@ -15,19 +15,24 @@ const RegisterScreen = ({ navigation }) => {
       headerBackTitle: "Back To Login",
     });
   }, [navigation]);
-  const handleRegister = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        authUser.user.updateProfile({
-          displayName,
-          photoUrl: profileUrl
-            ? profileUrl
-            : "https://forum.processmaker.com/download/file.php?avatar=93310_1550846185.png",
+  const handleRegister = async () => {
+    try {
+      const response = await auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((authUser) => {
+          authUser.user.updateProfile({
+            displayName,
+            photoUrl: profileUrl
+              ? profileUrl
+              : "https://forum.processmaker.com/download/file.php?avatar=93310_1550846185.png",
+          });
         });
-        navigation.replace("Home");
-      })
-      .catch((err) => alert(err.message));
+      if (response) {
+        navigation.navigate("Home");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (

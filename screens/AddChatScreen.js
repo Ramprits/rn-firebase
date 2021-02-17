@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Input, Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { db } from "../firebase-config";
 
 const AddChatScreen = ({ navigation }) => {
